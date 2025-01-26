@@ -15,12 +15,15 @@ let val = '';
 
 input.addEventListener('input', ev =>{
     val = ev.target.value;
+    if(val.trim() === ''){
+        input.value = '';
+    }
 });
 
 btn.addEventListener('click', ev => {
     ev.preventDefault();
     const validPattern = /^[a-zA-Zа-яА-ЯіІєЄїЇґҐ\s]+$/;
-    if(val.length === 0 || !validPattern.test(val)){
+    if(val.length === 0 || val.trim() === '' || !validPattern.test(val)){
         list.innerHTML = '';
         return iziToast.error({
             message: "Sorry, there are no images matching your search query. Please try again!",
