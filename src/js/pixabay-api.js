@@ -27,6 +27,11 @@ export function findMyFetch(query){
         loader.style.display = 'none';
         if (!data.hits || data.hits.length === 0) {
             list.innerHTML = '';
+            iziToast.error({
+                message: "Sorry, there are no images matching your search query. Please try again!",
+                timeout: 5000, 
+                position: 'topRight',
+            });
         } else {
             const markup = renderImages(data.hits);
             list.innerHTML = markup;
@@ -39,7 +44,11 @@ export function findMyFetch(query){
         }
     })
     .catch(err => {
-        console.error('Fetch error:', err);
+        iziToast.error({
+            message: err.message,
+            timeout: 5000, 
+            position: 'topRight',
+        })
         loader.style.display = 'none';
     });
 }
